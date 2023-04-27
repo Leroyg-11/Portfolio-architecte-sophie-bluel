@@ -4,8 +4,8 @@ const img = "http://localhost:5678/images/"
 const filter_item_container = document.querySelectorAll("filter_container div");
 let filter_1 = document.getElementById("filter_1");
 
+console.log("coucou")
 
-console.log("coucou");
 
 const getWorks = () => {
     fetch(url)
@@ -22,17 +22,22 @@ const getWorks = () => {
             </figure>
         </a>`};
 
-        // const filtreIdCategoryAll = data.filter(work => work.categoryId);
-        // console.log(filtreIdCategoryAll);
+        
 
-        // const filtreIdCategory1 = data.filter(work => work.categoryId == '1');
-        // console.log(filtreIdCategory1);
+        const filtreIdCategoryAll = data.filter(work => work.categoryId);
+        console.log(filtreIdCategoryAll);
 
-        // const filtreIdCategory2 = data.filter(work => work.categoryId == '2');
-        // console.log(filtreIdCategory2);
+        const filtreIdCategory1 = data.filter(work => work.categoryId == '1');
+        console.log(filtreIdCategory1);
 
-        // const filtreIdCategory3 = data.filter(work => work.categoryId == '3');
-        // console.log(filtreIdCategory3);
+        const filtreIdCategory2 = data.filter(work => work.categoryId == '2');
+        console.log(filtreIdCategory2);
+
+        const filtreIdCategory3 = data.filter(work => work.categoryId == '3');
+        console.log(filtreIdCategory3);
+
+        
+       
 
 
     })
@@ -40,8 +45,8 @@ const getWorks = () => {
 
     
 }
-
 getWorks();
+
 
 
 
