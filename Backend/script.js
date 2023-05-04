@@ -27,7 +27,29 @@ async function init() {
     const dataCategory = await getDataCategory()
     console.log(dataCategory)
 
+    
+
 
 }
 
 init()
+
+
+
+
+// for(category in dataCategory){
+//     const container = document.getElementById("filters")
+//     container.innerHTML += `<div class="filter ${dataCategory[category].id} ${dataCategory[category].name}" id="${dataCategory[category].id}"> ${dataCategory[category].name} </div>`
+// }
+
+
+// for (projet in dataWorks) {
+//     const container = document.getElementById("gallery")
+//     const img = "http://localhost:5678/images/"
+
+//     container.innerHTML += `<a href="${dataWorks[projet].imageUrl}" >
+//     <figure class="active">
+//         <img src="${dataWorks[projet].imageUrl}"  alt="Categorie : ${dataWorks[projet].category.name} : ${dataWorks[projet].title}">
+//         <figcaption class="title" id="title">${dataWorks[projet].title}</figcaption>
+//     </figure>
+// </a>`}
