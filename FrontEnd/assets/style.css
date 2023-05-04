@@ -186,6 +186,54 @@ footer nav ul {
 	margin: 2em
 }
 
+/* -- CSS log -- */
+
+.body_log{
+	background-color: #FFFEF8;
+}
+
+.container_log{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.container_log h2, .form{
+	padding: 15px 0;
+	/* color: red; */
+}
+
+.container_log .form_boxes{
+	margin: 10px 0;
+	border: none;
+	height: 50px;
+	width: 300px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+
+}
+
+.container_log .form_btn{
+	width: 180px;
+	height: 40px;
+	border: none;
+	color: white;
+}
+
+.container_log p{
+	cursor: pointer;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.footer_log{
+	width: 100%;
+	padding: 25px 100px;
+	background-color: white;
+	text-align: right;
+}
+
+
+
 
 
 /* -- Mon propre CSS -- */
@@ -212,6 +260,18 @@ footer nav ul {
 	width: 0px;
 
 }
+
+
+  
+a:visited, :link, :active {
+text-decoration: none;
+color: black;
+}	
+
+a:hover{
+	color: #B1663C;
+}
+
 
 
 
