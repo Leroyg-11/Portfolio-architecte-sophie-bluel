@@ -187,13 +187,15 @@ footer nav ul {
 }
 
 
+
 /* -- Mon propre CSS -- */
 
-.filter_container{
+.filters{
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+	
 }
 
 .filter{
@@ -205,3 +207,14 @@ footer nav ul {
 	padding: 10px;
 	cursor: pointer;
 }
+
+#gallery .inactive{
+	width: 0px;
+
+}
+
+.lol{
+	color: green;
+	background-color: red;
+}
+
