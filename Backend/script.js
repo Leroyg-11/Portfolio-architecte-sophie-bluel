@@ -23,12 +23,6 @@ async function getDataCategory() {
 }
 
 async function init() {
-
-    let a = 10;
-    let b = 5;
-
-    console.log(a + b)
-
     const dataWorks = await getDataWorks()
     console.log(dataWorks)
     console.log("coucou")
@@ -116,32 +110,10 @@ async function init() {
     });
 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 init()
+
+
 
 
