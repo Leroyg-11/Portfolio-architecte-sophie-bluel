@@ -1,6 +1,6 @@
 const form = document.querySelector(".container_log");
 const error = document.querySelector(".form-error");
-const account = document.querySelector("account")
+
 
 
 async function postUser({ form_email, form_password}) {
@@ -18,17 +18,7 @@ async function postUser({ form_email, form_password}) {
       },
       body: JSON.stringify(body),
     });
-    console.log(response.status)
-    if(response.status == 200){
-            error.innerHTML ="OKKKKK",
-            document.location = 'index.html'
-            account.classList.add(".connected")
-
-            
-        }else{
-            error.innerHTML ="Veuillez entrer une adresse mail et un mot de passe valide"
-        }
-    
+    console.log(response)
   } catch (error) {
     console.log(error);
   }
@@ -60,3 +50,4 @@ function handleSubmit(event) {
 
 form.addEventListener("submit", handleSubmit);
 
+console.log("coucou")

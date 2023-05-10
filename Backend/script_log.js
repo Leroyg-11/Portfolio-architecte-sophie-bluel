@@ -1,7 +1,9 @@
 const form = document.querySelector(".container_log");
 const error = document.querySelector(".form-error");
+const account = document.querySelector("account")
 
-async function postUser({ form_email, form_password}) {
+
+async function postUser( form_email, form_password) {
   
   const body = {
     email: form_email,
@@ -16,22 +18,30 @@ async function postUser({ form_email, form_password}) {
       },
       body: JSON.stringify(body),
     });
-    console.log(response)
+    console.log(response.status)
+
+    error.innerHTML ="OKKKKK",
+    document.location = 'index.html'
+    account.classList.add(".connected")
+
+        
+    
   } catch (error) {
     console.log(error);
+    error.innerHTML ="Veuillez entrer une adresse mail et un mot de passe valide"
   }
+
+  // TOKEN 
 }
 
 
 
 
 
-
-
-function handleSubmit(event) {
+async function handleSubmit(event) {
   event.preventDefault();
 
-  const form_email = event.target[0].value;
+  const form_email = event.target[0].value; // OU QUERYSELECTOR INPUT
   const form_password = event.target[1].value;
 
   if (!form_password || !form_email) {
@@ -39,7 +49,7 @@ function handleSubmit(event) {
     return;
   }
 
-  postUser({form_email, form_password});
+  await postUser(form_email, form_password);
 
   // Retrieve inputs value from form event (srcElement, value)
 
@@ -48,4 +58,3 @@ function handleSubmit(event) {
 
 form.addEventListener("submit", handleSubmit);
 
-console.log("coucou")
