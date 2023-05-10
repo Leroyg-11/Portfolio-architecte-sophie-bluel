@@ -17,6 +17,7 @@ async function postUser(form_mail, form_password){
         },
         body: JSON.stringify(body),
         });
+        document.location = "index.html"
 
 
     }  catch(error){
