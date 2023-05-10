@@ -1,147 +1,62 @@
-window.onload = () => {
-    const urlWorks = "http://localhost:5678/api/works/";
-    const catId = "http://localhost:5678/api/categories/"; 
+const form = document.querySelector(".container_log");
+const error = document.querySelector(".form-error");
+const account = document.querySelector("account")
 
-    const funcGlobal = () => {
-        
-        const getCategories = () =>  {
-            fetch(catId)
-            .then(function (resultat) {
-                return resultat.json()
-            })
-            .then (function (data) {
 
-                for(projet in data){
-                    const container = document.getElementById("filters")
-                    container.innerHTML += `<div class="filter ${data[projet].id} ${data[projet].name}" id="${data[projet].id}"> ${data[projet].name} </div>`
-                }
-            })
+async function postUser({ form_email, form_password}) {
+  
+  const body = {
+    email: form_email,
+    password: form_password,
+  };
+
+  try {
+    const response = await fetch("http://localhost:5678/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(body),
+    });
+    console.log(response.status)
+    if(response.status == 200){
+            error.innerHTML ="OKKKKK",
+            document.location = 'index.html'
+            account.classList.add(".connected")
+
+            
+        }else{
+            error.innerHTML ="Veuillez entrer une adresse mail et un mot de passe valide"
         }
-
-        getCategories();
     
-        
-        
-        const GetWork = () =>  {
-            fetch(urlWorks)
-            .then(function (resultat) {
-                return resultat.json()
-            })
-            .then (function (data) {
-                // console.log(data)
-                for (projet in data) {
-                    const container = document.getElementById("gallery")
-                    const img = "http://localhost:5678/images/"
-
-                    container.innerHTML += `<a href="${data[projet].imageUrl}" >
-                    <figure class="active">
-                        <img src="${data[projet].imageUrl}"  alt="Categorie : ${data[projet].category.name} : ${data[projet].title}">
-                        <figcaption class="title" id="title">${data[projet].title}</figcaption>
-                    </figure>
-                </a>`}
-            })
-
-        }
-        GetWork();
-
-        const getFiltre = () => {
-            fetch(urlWorks)
-                .then(function (resultat) {
-                    return resultat.json()
-                })
-                .then (function (dataWorks) {
-                    // console.log(dataWorks[1].category.name)
-                    // console.log(dataWorks[0].categoryId)
-    
-                        fetch(catId)
-                        .then(function (resultat) {
-                            return resultat.json()
-                        })
-                        .then (function (dataId) {
-                            // console.log(dataId[1].name)
-                            // console.log(dataId[0].id)
-    
-                            const test = dataWorks.filter(function(dataWorks){
-                                return dataWorks.categoryId == 1 ;
-                                
-                            })
-                            // console.log(test)
-
-                            const btn1 = document.getElementById("1")
-                            console.log(btn1)
-
-                            const btn2 = document.getElementById("2")
-                            console.log(btn2)
-                            
-                            const btn3 = document.getElementById("3");
-
-                            btn3.addEventListener("click", function(){
-                                const clickFiltre3 = dataWorks.filter(function(dataWorks){
-                                    return dataWorks.categoryId == 3 ;
-                                }) 
-                                document.querySelector("#gallery").innerHTML = " ";
-                                GetWork(clickFiltre3);
-                            })
-                            console.log(btn3)
-    
-                            
-    
-    
-    
-                            const clickFiltre1 = dataWorks.filter(function(dataWorks){
-                                return dataWorks.categoryId == 1 ;
-                            })
-                            // console.table(clickFiltre1)
-    
-                            const clickFiltre2 = dataWorks.filter(function(dataWorks){
-                                return dataWorks.categoryId == 2 ;
-                            })
-                            // console.log(clickFiltre2)
-    
-                            const clickFiltre3 = dataWorks.filter(function(dataWorks){
-                                return dataWorks.categoryId == 3 ;
-                            })
-                            console.log(clickFiltre3)       
-
-
-                            // const container = document.getElementById("filters")
-                            // console.log(container)
-                            
-                            // container.addEventListener("click", () => {
-                            //     const egalite = 
-
-                            // })
-                            
-                           
-
-
-
-    
-    
-                            
-
-
-                            
-    
-                        })
-                          
-    
-                })
-                const nouveauTest = document.querySelector(".filter")
-                console.log(nouveauTest)
-                nouveauTest.addEventListener("click", function(){
-
-                })
-    
-        }
-        getFiltre();
-
-    }
-
-    funcGlobal()
-
-    
-
-
-
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+
+
+
+
+
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const form_email = event.target[0].value;
+  const form_password = event.target[1].value;
+
+  if (!form_password || !form_email) {
+    error.innerHTML = "Veuillez entrer un mot de passe valide";
+    return;
+  }
+
+  postUser({form_email, form_password});
+
+  // Retrieve inputs value from form event (srcElement, value)
+
+  // Use thoses values to call the backend login api
+}
+
+form.addEventListener("submit", handleSubmit);
+

@@ -34,7 +34,7 @@ function handleSubmit(event) {
   const form_email = event.target[0].value;
   const form_password = event.target[1].value;
 
-  if (!form_password) {
+  if (!form_password || !form_email) {
     error.innerHTML = "Veuillez entrer un mot de passe valide";
     return;
   }
@@ -47,3 +47,5 @@ function handleSubmit(event) {
 }
 
 form.addEventListener("submit", handleSubmit);
+
+console.log("coucou")

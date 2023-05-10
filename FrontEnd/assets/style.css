@@ -219,10 +219,17 @@ footer nav ul {
 	color: white;
 }
 
-.container_log p{
+.container_log .forget_password{
 	cursor: pointer;
 	text-decoration: underline;
 	text-underline-offset: 2px;
+}
+
+.form-error{
+	color: #B1663C;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	margin-bottom: 5px;
 }
 
 .footer_log{
@@ -283,3 +290,23 @@ a:hover{
 	background-color: red;
 }
 
+/* account */
+
+#account .connected{
+	padding: 10px;
+	margin: 0;
+	color: rgb(245, 241, 234);
+	width: 100%;
+	height: 5%;
+	background-color: rgb(27, 22, 22);
+	display: flex;
+	justify-content: center;
+}
+
+#account{
+	display: none;
+}
+
+/* #account div{
+	padding: 0 5px;
+} */
