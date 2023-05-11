@@ -186,6 +186,17 @@ footer nav ul {
 	margin: 2em
 }
 
+
+
+
+
+
+
+
+
+
+
+
 /* -- CSS log -- */
 
 .body_log{
@@ -225,7 +236,7 @@ footer nav ul {
 	text-underline-offset: 2px;
 }
 
-.form-error{
+.form_error{
 	color: #B1663C;
 	text-decoration: underline;
 	text-underline-offset: 2px;
