@@ -2,8 +2,8 @@
 
 async function getDataWorks() {
   try {
-    const reponse = await fetch("http://localhost:5678/api/works/");
-    const dataWorks = await reponse.json();
+    const response = await fetch("http://localhost:5678/api/works/");
+    const dataWorks = await response.json();
     return dataWorks;
   } catch (error) {
     console.log(error);
@@ -12,8 +12,8 @@ async function getDataWorks() {
 
 async function getDataCategory() {
   try {
-    const reponse = await fetch("http://localhost:5678/api/categories/");
-    const DataCategory = await reponse.json();
+    const response = await fetch("http://localhost:5678/api/categories/");
+    const DataCategory = await response.json();
     return DataCategory;
   } catch (error) {
     console.log(error);

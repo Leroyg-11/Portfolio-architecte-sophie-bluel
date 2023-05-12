@@ -1,36 +1,42 @@
 const form = document.querySelector(".container_log");
-const error = document.querySelector(".form_error")
-// const url = await fetch("http://localhost:5678/api/users/login")
+const errorHtml = document.querySelector(".form_error")
 
+const errorForm = "Veuillez entrer une adresse mail et un mot de passe valide"
+// const url = await fetch("http://localhost:5678/api/users/login")
 
 async function postUser(form_mail, form_password){
     const body = {
         email: form_mail,
         password: form_password,
     };
+    const url = "http://localhost:5678/api/users/login";
 
- 
-    try{
-        const response = await fetch("http://localhost:5678/api/users/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(body),
-        }).then((getToken)=>getToken.json())
-        .then((dataToken)=> {
-            tokenAuth(dataToken.userId, dataToken.token)
-            // document.location = "index.html"
-            localStorage.setItem("token", dataToken.token)
-            localStorage.setItem("userId", dataToken.userId)
-        });
-        // document.location = "index.html"
-       
+    const fetchHandler = async () => {
+        try{
+            const response = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8",
+                },
+            });
+            const dataResponse = await response.json()
+            tokenAuth(dataResponse.userId, dataResponse.token);
+            console.log(dataResponse)
+            
+        } catch(error) {
+            console.log(error);
+            errorHtml.innerHTML = errorForm
+        }
         
-        
-    } catch(error){
-        console.log(error);
-    };
+    }
+
+    await fetchHandler()
+    await checkLocal()
+
+
+
+   
 
 
 };
@@ -44,9 +50,9 @@ async function handleSubmit(event){
     const form_password = event.target[1].value
 
     if (!form_password || !form_mail) {
-        error.innerHTML = "Veuillez entrer un mot de passe valide";
+        errorHtml.innerHTML = "Veuillez entrer un mot de passe valide";
         return;
-      }
+    }
 
     await postUser(form_mail, form_password)
 
@@ -55,9 +61,21 @@ async function handleSubmit(event){
 
 
 function tokenAuth(userId, token){
-    userId = this.userId;
-    token = this.token
+    localStorage.setItem("token", JSON.stringify(token)),
+    localStorage.setItem("userId", JSON.stringify(userId))
+}
+
+async function checkLocal() {
+    const localToken = await localStorage.getItem("token");
+    console.log(localToken)
+
+    if(localToken === "undefined"){
+        errorHtml.innerHTML = errorForm
+    }else{
+        document.location = "index.html"
+    }
     
+
 }
 
 
@@ -66,4 +84,14 @@ function tokenAuth(userId, token){
 
 
 
+
+
 form.addEventListener("submit", handleSubmit);
+
+
+// .then((getToken) => getToken.json())
+//         .then((dataToken)=> {
+//             tokenAuth(dataToken.userId, dataToken.token)
+//             localStorage.setItem("token", dataToken.token)
+//             localStorage.setItem("userId", dataToken.userId)
+//         });
