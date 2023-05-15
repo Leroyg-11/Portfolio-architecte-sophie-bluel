@@ -70,6 +70,9 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
+h1 a{
+	color: #B1663C;
+}
 
 h1 > span {
 	font-family: 'Work Sans';
@@ -253,6 +256,18 @@ footer nav ul {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.04);
 }
 
+/*  Logout */
+.invisible{
+	display: none;
+}
+
+.visible{
+	color: #B1663C
+}
+
+.btn_logout{
+	cursor: pointer;
+}
 
 
 
@@ -286,14 +301,21 @@ footer nav ul {
   
 a:visited, :link, :active {
 text-decoration: none;
-color: black;
 }	
 
 a:hover{
 	color: #B1663C;
 }
 
+.red{
+	color: red;
+	background-color: red;
+}
 
+.green{
+	color: green;
+	background-color: green;
+}
 
 
 #account .connected{

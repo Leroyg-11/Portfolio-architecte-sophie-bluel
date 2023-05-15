@@ -22,8 +22,8 @@ async function getDataCategory() {
 
 async function init() {
   const dataWorks = await getDataWorks();
-  console.log(dataWorks);
-  console.log("coucou");
+  // console.log(dataWorks);
+  // console.log("coucou");
 
   const dataCategory = await getDataCategory();
   // console.log(dataCategory)
@@ -109,3 +109,66 @@ init();
 
 
 
+// --------------------
+
+
+async function checkLocal() {
+  const login = await document.querySelector(".login");
+  const navUl = document.querySelector(".nav_ul")
+  const logout = await document.createElement("li");
+
+  logout.textContent ="logout"
+  const imgLi = document.querySelector(".imgLi")
+  const account = await document.querySelector("#account")
+
+  navUl.appendChild(logout);
+  navUl.insertBefore(logout, imgLi)
+  logout.classList.add("invisible")
+
+  logout.classList.add("btn_logout")
+
+
+
+  const localStatus = localStorage.getItem("status");
+
+  // console.log(localToken)
+  // console.log(localStatus)
+  
+  if(localStatus === "200"){ // code 200
+    logout.classList.remove("invisible")
+    logout.classList.add("visible")
+    login.classList.add("invisible")
+
+  }else { // code error
+    login.classList.add("visible")
+
+  }
+
+  logout.addEventListener("click", function () {
+    localStorage.clear()
+    location.reload();
+
+  });
+  
+
+  
+
+}
+
+checkLocal()
+
+
+
+
+
+  
+
+
+
+ // const logoutClick = logout.addEventListener("click", localStorage.clear())
+
+  // console.log(logout)
+  // console.log(login)
+
+  // const localToken = await localStorage.getItem("token");
+  

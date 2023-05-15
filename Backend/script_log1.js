@@ -4,6 +4,11 @@ const errorHtml = document.querySelector(".form_error")
 const errorForm = "Veuillez entrer une adresse mail et un mot de passe valide"
 // const url = await fetch("http://localhost:5678/api/users/login")
 
+
+
+
+
+
 async function postUser(form_mail, form_password){
     const body = {
         email: form_mail,
@@ -21,12 +26,11 @@ async function postUser(form_mail, form_password){
                 },
             });
             const dataResponse = await response.json()
-            tokenAuth(dataResponse.userId, dataResponse.token);
+            tokenAuth(dataResponse.userId, dataResponse.token, response.status);
             console.log(dataResponse)
             
         } catch(error) {
             console.log(error);
-            errorHtml.innerHTML = errorForm
         }
         
     }
@@ -60,9 +64,10 @@ async function handleSubmit(event){
 };
 
 
-function tokenAuth(userId, token){
+function tokenAuth(userId, token, status){
     localStorage.setItem("token", JSON.stringify(token)),
     localStorage.setItem("userId", JSON.stringify(userId))
+    localStorage.setItem("status", JSON.stringify(status))
 }
 
 async function checkLocal() {
@@ -73,8 +78,8 @@ async function checkLocal() {
         errorHtml.innerHTML = errorForm
     }else{
         document.location = "index.html"
+        
     }
-    
 
 }
 
