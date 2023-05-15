@@ -105,70 +105,97 @@ async function init() {
 
 init();
 
-
-
-
-
 // --------------------
-
 
 async function checkLocal() {
   const login = await document.querySelector(".login");
-  const navUl = document.querySelector(".nav_ul")
+  const navUl = document.querySelector(".nav_ul");
   const logout = await document.createElement("li");
 
-  logout.textContent ="logout"
-  const imgLi = document.querySelector(".imgLi")
-  const account = await document.querySelector("#account")
+  logout.textContent = "logout";
+  const imgLi = document.querySelector(".imgLi");
+  const account = document.querySelector(".account");
 
   navUl.appendChild(logout);
-  navUl.insertBefore(logout, imgLi)
-  logout.classList.add("invisible")
+  navUl.insertBefore(logout, imgLi);
+  logout.classList.add("invisible");
 
-  logout.classList.add("btn_logout")
-
-
+  logout.classList.add("btn_logout");
 
   const localStatus = localStorage.getItem("status");
 
-  // console.log(localToken)
-  // console.log(localStatus)
-  
-  if(localStatus === "200"){ // code 200
-    logout.classList.remove("invisible")
-    logout.classList.add("visible")
-    login.classList.add("invisible")
+  // -------------- //
 
-  }else { // code error
-    login.classList.add("visible")
+  if (localStatus === "200") {
+    // code 200
 
+    logout.classList.remove("invisible");
+    logout.classList.add("visible");
+    login.classList.add("invisible");
+
+    account.classList.remove("account");
+    account.classList.add("connected");
+  } else {
+    // code error
+    login.classList.add("visible");
   }
 
   logout.addEventListener("click", function () {
-    localStorage.clear()
+    localStorage.clear();
     location.reload();
-
   });
-  
+  // -------------- //
 
-  
+  const modalContainer = document.querySelector(".modal_container");
+  const modalTriggers = document.querySelectorAll(".modal-trigger");
 
+  modalTriggers.forEach((trigger) =>
+    trigger.addEventListener("click", toggleModal)
+  );
+
+  function toggleModal() {
+    modalContainer.classList.toggle("active");
+  }
+
+  async function initModal() {
+    const dataWorks = await getDataWorks();
+
+    function genererModalDataWorks(dataWorks) {
+      for (let i = 0; i < dataWorks.length; i++) {
+        const modalFigure = dataWorks[i];
+
+        const sectionModalGallery = document.querySelector(".modal_gallery");
+        const workModalElement = document.createElement("modal_figure");
+        workModalElement.classList.add("modal_card");
+        const imageModalElement = document.createElement("img");
+
+        imageModalElement.src = modalFigure.imageUrl;
+        const editModalElement = document.createElement("p");
+        editModalElement.innerText = "éditer";
+
+        const iconeModal = document.createElement("div");
+        iconeModal.classList.add("icone_modal");
+        iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+        // <i class="fa-solid fa-arrows-up-down-left-right"></i> MULTIFLECHES
+
+        sectionModalGallery.appendChild(workModalElement);
+        workModalElement.appendChild(imageModalElement);
+        workModalElement.appendChild(editModalElement);
+        workModalElement.appendChild(iconeModal);
+      }
+    }
+    genererModalDataWorks(dataWorks);
+  }
+  initModal();
+
+  const deletWork = document.querySelector(".fa-trash-can");
+  const modalCard = document.querySelector(".modal_card");
+
+  deletWork.addEventListener("click", function () {
+    modalCard.classList.add("invisble");
+  });
 }
 
-checkLocal()
+checkLocal();
 
-
-
-
-
-  
-
-
-
- // const logoutClick = logout.addEventListener("click", localStorage.clear())
-
-  // console.log(logout)
-  // console.log(login)
-
-  // const localToken = await localStorage.getItem("token");
-  
+// _-_ //

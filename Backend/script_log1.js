@@ -1,7 +1,7 @@
 const form = document.querySelector(".container_log");
 const errorHtml = document.querySelector(".form_error")
 
-const errorForm = "Veuillez entrer une adresse mail et un mot de passe valide"
+const errorForm = "Email ou mot de passe incorrect"
 // const url = await fetch("http://localhost:5678/api/users/login")
 
 
@@ -94,9 +94,3 @@ async function checkLocal() {
 form.addEventListener("submit", handleSubmit);
 
 
-// .then((getToken) => getToken.json())
-//         .then((dataToken)=> {
-//             tokenAuth(dataToken.userId, dataToken.token)
-//             localStorage.setItem("token", dataToken.token)
-//             localStorage.setItem("userId", dataToken.userId)
-//         });

@@ -307,32 +307,170 @@ a:hover{
 	color: #B1663C;
 }
 
-.red{
-	color: red;
-	background-color: red;
-}
-
-.green{
-	color: green;
-	background-color: green;
-}
-
-
-#account .connected{
-	padding: 10px;
-	margin: 0;
-	color: rgb(245, 241, 234);
-	width: 100%;
-	height: 5%;
-	background-color: rgb(27, 22, 22);
-	display: flex;
-	justify-content: center;
-}
-
-#account{
+.account{
 	display: none;
 }
 
-/* #account div{
-	padding: 0 5px;
-} */
+
+.account_bar_container{
+	margin: 0;
+	padding: 0;
+}
+
+.connected{
+	left: 0;
+    top: 0;
+    position: absolute;
+	color: rgb(245, 241, 234);
+    min-width: 100%;
+	height: 60px;
+	background-color: rgb(27, 22, 22);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.connected li{
+	margin: 5px;
+	cursor: pointer;
+
+}
+
+.change {
+	color: black;
+	padding: 5px 15px;
+	background: #FFFFFF;
+	border-radius: 60px;
+}
+
+
+
+
+/* MODAL */
+
+
+.modal_container{
+	display: none;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.modal_container.active{
+	display: block;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+.overlay{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(51, 51, 51, 0.227);
+}
+
+.modal{
+	/* overflow: auto; */
+	/* width: 95%; */
+	max-width: 630px;
+	max-height: 735px;
+	background-color: #fff;
+	border-radius: 10px;
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* border: 1px solid rgb(35, 33, 33); */
+	padding: 3% 3%;
+}
+
+.close_modal{
+	padding: 8px 10px;
+	background-color: #FFF;
+	border: none;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+/* MODAL_GALLERY */
+
+
+.modal_title{
+    padding: 0 0 30px 0;
+	color: black;
+	align-items: center;
+	font-family: 'Work Sans';
+}
+
+
+.modal_gallery{
+	width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+
+}
+
+.separat{
+	border: 1px solid black;
+    display: block;
+	margin-top: 5%;
+
+}
+
+.modal_gallery img{
+	width: 80px;
+    object-fit: cover;
+	padding: 4px;
+}
+
+.modal_option{
+	display: flex;
+	flex-direction: column;
+	padding: 20px 100px;
+}
+
+.add_work{
+	font-family: 'Syne';
+	font-size: 1em;
+	margin: 25px 0;
+	border: none;
+	border-radius: 60px;
+	background-color: #1D6154;
+	color: white;
+	padding: 10px 0px;
+}
+
+.delete_gallery{
+	border: none;
+	color: #B1663C;
+	background-color: white;
+
+}
+
+.modal_card{
+	position: relative;
+}
+
+.modal_card i{
+	position: absolute;
+    top: 8px;
+	right: 9px;
+	padding: 4px;
+	background-color: black;
+	color: #FFF;
+	border-radius: 2px;
+	cursor: pointer;
+
+
+}
+
+
+	

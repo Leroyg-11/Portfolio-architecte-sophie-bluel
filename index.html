@@ -8,20 +8,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
     <meta name="description" content="" />
+    <script src="https://kit.fontawesome.com/58df384067.js" crossorigin="anonymous"></script>
+    
+
     <link rel="stylesheet" href="./FrontEnd/assets/style.css" />
   </head>
-  <body>
-    <section id="account">
-      <ul>
-        <li>icone</li>
-        <li>Mode edition</li>
-        <li>publier les changements</li>
-      </ul>
 
-    </section>
+  
+
+
+  <body>
+
+    <div class="modal_container">
+
+      <div class="overlay modal-trigger"></div>
+  
+      <div class="modal">
+  
+        <button class="close_modal modal-trigger"><i class="fa-solid fa-xmark"></i></button>
+        <h1 class="modal_title">Galerie photo</h1>
+        <div class="modal_gallery"></div>
+        <span class="separat"></span>
+        <div class="modal_option">
+          <button class="add_work">Ajouter une photo</button>
+          <button class="delete_gallery">Supprimer la galerie</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="account_bar_container">
+      <ul class="account">
+        <li><i class="fa-regular fa-pen-to-square modal-trigger"></i></li>
+        <li>Mode edition</li>
+        <li class ="change">publier les changements</li>
+      </ul>
+    </section><br><br>
+    
+
     
     <header>
       <h1><a href="index.html">Sophie Bluel</a><span>Architecte d'inteérieur</span></h1>
