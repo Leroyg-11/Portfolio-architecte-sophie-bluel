@@ -88,9 +88,6 @@ async function checkLocal() {
 
 
 
-
-
-
 form.addEventListener("submit", handleSubmit);
 
 

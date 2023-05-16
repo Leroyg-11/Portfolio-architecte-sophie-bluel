@@ -1,28 +1,34 @@
 //  redemander pq function Async ?
 
-async function getDataWorks() {
-  try {
-    const response = await fetch("http://localhost:5678/api/works/");
-    const dataWorks = await response.json();
-    return dataWorks;
-  } catch (error) {
-    console.log(error);
-  }
-}
+import { getDataWorks, getDataCategory } from "./api.js";
+// import coucou from './imprtgetGata'
 
-async function getDataCategory() {
-  try {
-    const response = await fetch("http://localhost:5678/api/categories/");
-    const DataCategory = await response.json();
-    return DataCategory;
-  } catch (error) {
-    console.log(error);
-  }
-}
+
+// async function getDataWorks() {
+//   try {
+//     const response = await fetch("http://localhost:5678/api/works/");
+//     const dataWorks = await response.json();
+//     return dataWorks;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+
+
+// async function getDataCategory() {
+//   try {
+//     const response = await fetch("http://localhost:5678/api/categories/");
+//     const DataCategory = await response.json();
+//     return DataCategory;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 async function init() {
   const dataWorks = await getDataWorks();
-  // console.log(dataWorks);
+  console.log(dataWorks);
   // console.log("coucou");
 
   const dataCategory = await getDataCategory();
@@ -167,6 +173,7 @@ async function checkLocal() {
         const sectionModalGallery = document.querySelector(".modal_gallery");
         const workModalElement = document.createElement("modal_figure");
         workModalElement.classList.add("modal_card");
+        workModalElement.setAttribute('id', `${dataWorks[i].id}`)
         const imageModalElement = document.createElement("img");
 
         imageModalElement.src = modalFigure.imageUrl;
@@ -176,26 +183,70 @@ async function checkLocal() {
         const iconeModal = document.createElement("div");
         iconeModal.classList.add("icone_modal");
         iconeModal.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+        iconeModal.setAttribute('id', `${dataWorks[i].id}`)
+
         // <i class="fa-solid fa-arrows-up-down-left-right"></i> MULTIFLECHES
 
         sectionModalGallery.appendChild(workModalElement);
         workModalElement.appendChild(imageModalElement);
         workModalElement.appendChild(editModalElement);
         workModalElement.appendChild(iconeModal);
+
+
+        // iconeModal.addEventListener("click", function() {
+        //   const modalFigureId = this.getAttribute('id')
+        //   console.log(modalFigureId)
+
+          
+        // })
+
+        iconeModal.addEventListener("click", async function() {
+          const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
+          const id = modalFigureId;
+          const localToken = await localStorage.getItem("token");
+          
+          const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+            method: 'DELETE',
+            headers: {
+              Authorization: `Bearer ${localToken}`,
+              "Content-Type": "application/json;charset=utf-8",
+            }
+          });
+          
+          if (response.status !== 200) {
+            // Suppression réussie
+            const modalFigureElement = document.getElementById(modalFigureId);
+            modalFigureElement.remove();
+          } else if (response.status === 200) {
+            // Non autorisé
+            console.log("Unauthorized");
+          } else {
+            // Erreur inattendue
+            console.log("Unexpected Error");
+          }
+        });
+        
+
       }
     }
     genererModalDataWorks(dataWorks);
+    // console.log(dataWorks.id)
   }
   initModal();
-
-  const deletWork = document.querySelector(".fa-trash-can");
-  const modalCard = document.querySelector(".modal_card");
-
-  deletWork.addEventListener("click", function () {
-    modalCard.classList.add("invisble");
-  });
+  
 }
 
 checkLocal();
 
-// _-_ //
+
+
+// Delete Works
+
+
+
+
+
+
+
+
+
