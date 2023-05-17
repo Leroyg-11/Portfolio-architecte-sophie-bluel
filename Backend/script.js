@@ -149,19 +149,67 @@ async function checkLocal() {
   logout.addEventListener("click", function () {
     localStorage.clear();
     location.reload();
+    // genererDataWorks(dataWorks);
+
   });
-  // -------------- //
+  // -------MODALE------- //
 
   const modalContainer = document.querySelector(".modal_container");
   const modalTriggers = document.querySelectorAll(".modal-trigger");
+
+  const modalOne = document.querySelector(".modal");
+  
 
   modalTriggers.forEach((trigger) =>
     trigger.addEventListener("click", toggleModal)
   );
 
+
   function toggleModal() {
+    const modal_update = document.querySelector(".modal_update");
+    const btnAdd = document.querySelector(".add_work");
+
     modalContainer.classList.toggle("active");
+    modalOne.classList.remove("invisible");
+
+    btnAdd.addEventListener("click", function(){
+      modalOne.classList.remove("active");
+      modalOne.classList.add("invisible");
+      modal_update.classList.remove("invisible");
+      modal_update.classList.add("active");
+    })
   }
+
+
+
+  async function genererCatModal(){
+    const dataCategory = await getDataCategory();
+    
+
+    function genererOption(dataCategory) {
+      for(let i = 0; i < dataCategory.length; i++) {
+        const modal_option = dataCategory[i];
+
+        const modal_category = document.querySelector(".modal_category");
+
+        modal_category.innerHTML = `<option class="${dataCategory[i].name}">${dataCategory[i].name}</option>`;
+
+      }
+    }  
+    genererOption(dataCategory);
+
+   
+  }
+  genererCatModal();
+
+
+
+
+
+  
+
+
+ 
 
   async function initModal() {
     const dataWorks = await getDataWorks();
@@ -204,20 +252,23 @@ async function checkLocal() {
           const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
           const id = modalFigureId;
           const localToken = await localStorage.getItem("token");
+          console.log(localToken)
+          
           
           const response = await fetch(`http://localhost:5678/api/works/${id}`, {
             method: 'DELETE',
             headers: {
-              Authorization: `Bearer ${localToken}`,
+              Authorization: `Bearer ${localToken.replace(/['"]+/g, '')}`, 
+              // ${localToken.replace(/['"]+/g, '')} ==> Supprime les quotes qui entoure le token et qui bloque l'authentification
               "Content-Type": "application/json;charset=utf-8",
             }
           });
           
-          if (response.status !== 200) {
+          if (response.status === 200) {
             // Suppression réussie
             const modalFigureElement = document.getElementById(modalFigureId);
             modalFigureElement.remove();
-          } else if (response.status === 200) {
+          } else if (response.status !== 200) {
             // Non autorisé
             console.log("Unauthorized");
           } else {
@@ -230,9 +281,9 @@ async function checkLocal() {
       }
     }
     genererModalDataWorks(dataWorks);
-    // console.log(dataWorks.id)
   }
   initModal();
+
   
 }
 
@@ -240,7 +291,6 @@ checkLocal();
 
 
 
-// Delete Works
 
 
 

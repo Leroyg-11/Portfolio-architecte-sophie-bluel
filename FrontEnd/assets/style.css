@@ -227,6 +227,7 @@ footer nav ul {
 }
 
 .container_log .form_btn{
+	cursor: pointer;
 	width: 180px;
 	height: 40px;
 	border: none;
@@ -437,7 +438,11 @@ a:hover{
 	padding: 20px 100px;
 }
 
+
+
 .add_work{
+	cursor: pointer;
+
 	font-family: 'Syne';
 	font-size: 1em;
 	margin: 25px 0;
@@ -449,6 +454,8 @@ a:hover{
 }
 
 .delete_gallery{
+	cursor: pointer;
+
 	border: none;
 	color: #B1663C;
 	background-color: white;
@@ -473,4 +480,27 @@ a:hover{
 }
 
 
+/* MODAL UPDATE */
+
+/* .modal_update{
+	display: none;
+} */
+
+
+
+
+.modal_update.active{
+	/* overflow: auto; */
+	/* width: 95%; */
+	max-width: 630px;
+	max-height: 735px;
+	background-color: #fff;
+	border-radius: 10px;
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* border: 1px solid rgb(35, 33, 33); */
+	padding: 3% 3%;
+}
 	

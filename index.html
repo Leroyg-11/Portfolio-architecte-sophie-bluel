@@ -25,8 +25,7 @@
 
       <div class="overlay modal-trigger"></div>
   
-      <div class="modal">
-  
+      <div class="modal invisible">
         <button class="close_modal modal-trigger"><i class="fa-solid fa-xmark"></i></button>
         <h1 class="modal_title">Galerie photo</h1>
         <div class="modal_gallery"></div>
@@ -36,6 +35,21 @@
           <button class="delete_gallery">Supprimer la galerie</button>
         </div>
       </div>
+
+      <div class="modal_update invisible">
+        <button class="close_modal modal-trigger"><i class="fa-solid fa-xmark"></i></button>
+        <h1 class="modal_title">Ajout photo</h1>
+        <label for="avatar">Choose a profile picture:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+        <div class="modal_description">
+          <label for="name">Titre</label> <input type="text" id="name" name="name">
+          <select class="modal_category"> </select>
+        <span class="separat"></span>
+          <button class="send_btn">Valider</button>
+        </div>
+      </div>
+
+
     </div>
 
     <section class="account_bar_container">
@@ -118,6 +132,8 @@
       </nav>
     </footer>
     <script src="./Backend/script.js" type="module"></script>
+    <script src="./Backend/modale_update.js" type="module"></script>
+
     
 
     <!-- <script src="./Backend/script.js"></script> -->
