@@ -2,6 +2,7 @@
 
 import { getDataWorks, getDataCategory } from "./api.js";
 // import coucou from './imprtgetGata'
+const dataWorks = await getDataWorks();
 
 
 // async function getDataWorks() {
@@ -172,44 +173,16 @@ async function checkLocal() {
     modalContainer.classList.toggle("active");
     modalOne.classList.remove("invisible");
 
+
     btnAdd.addEventListener("click", function(){
       modalOne.classList.remove("active");
       modalOne.classList.add("invisible");
       modal_update.classList.remove("invisible");
       modal_update.classList.add("active");
     })
+
   }
 
-
-
-  async function genererCatModal(){
-    const dataCategory = await getDataCategory();
-    
-
-    function genererOption(dataCategory) {
-      for(let i = 0; i < dataCategory.length; i++) {
-        const modal_option = dataCategory[i];
-
-        const modal_category = document.querySelector(".modal_category");
-
-        modal_category.innerHTML = `<option class="${dataCategory[i].name}">${dataCategory[i].name}</option>`;
-
-      }
-    }  
-    genererOption(dataCategory);
-
-   
-  }
-  genererCatModal();
-
-
-
-
-
-  
-
-
- 
 
   async function initModal() {
     const dataWorks = await getDataWorks();
@@ -252,13 +225,13 @@ async function checkLocal() {
           const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
           const id = modalFigureId;
           const localToken = await localStorage.getItem("token");
-          console.log(localToken)
+          // console.log(localToken)
           
           
           const response = await fetch(`http://localhost:5678/api/works/${id}`, {
             method: 'DELETE',
             headers: {
-              Authorization: `Bearer ${localToken.replace(/['"]+/g, '')}`, 
+              Authorization: `Bearer ${localToken}`, 
               // ${localToken.replace(/['"]+/g, '')} ==> Supprime les quotes qui entoure le token et qui bloque l'authentification
               "Content-Type": "application/json;charset=utf-8",
             }
@@ -290,12 +263,166 @@ async function checkLocal() {
 checkLocal();
 
 
+// SEND WORKS // 
+
+// async function genererCatModal(){
+//   const dataCategory = await getDataCategory();
+  
+
+//   function genererOption(dataCategory) {
+//     for(let i = 0; i < dataCategory.length; i++) {
+
+//       const modal_category = document.querySelector(".modal_category");
+
+//       modal_category.innerHTML = `<option class="option_category">${dataCategory[i].name}</option>`;
+
+//     }
+//   }  
+//   genererOption(dataCategory);
+
+ 
+// }
+// genererCatModal();
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// async function postNewWork(send_id, send_title, send_imageUrl, send_categoryId, send_userId){
+//   const body = {
+//                     id: send_id,
+//                     title: send_title,
+//                     imageUrl: send_imageUrl,
+//                     categoryId: send_categoryId,
+//                     userId: send_userId,
+//                };
+//   const url = "http://localhost:5678/api/works";
+//   const localToken = await localStorage.getItem("token");
+
+//   const fetchSendWork = async () => {
+//       try{
+//           const response = await fetch(url, {
+//               method: "POST",
+//               body: JSON.stringify(body),
+//               headers: {
+//                 Authorization: `Bearer ${localToken.replace(/['"]+/g, '')}`, 
+//                 "Content-Type": "multipart/form-data",
+
+//               },
+//           });
+//           // const dataResponse = await response.json()
+//           // tokenAuth(dataResponse.userId, dataResponse.token, response.status);
+//           console.log("c'est OK")
+
+          
+//       } catch(error) {
+//           console.log(error);
+//       }
+      
+//   }
+
+//   await fetchSendWork()
+//   // await checkLocal()
+
+// };
+
+//                           // const total = arrayWorks.length;
+
+//                           // console.log(total + 1)
+
+//                           // arrayWorks.push("New Works", "HEYYYYYY")
+
+// const worksArrayLength = Array.from(dataWorks).length;
+// const modalUpdateForm = document.querySelector(".modal_update_form")
+// const inputValue = document.querySelector(".input_value")
+// const sendBtn = document.querySelector(".send_btn");
+// const sendImgUrl = document.querySelector("#avatar")
+// const modalCategory = document.querySelector(".modal_category");
 
 
 
+// async function handleSendWork(){
+//   const send_id = worksArrayLength + 1;
+//   const send_title =  inputValue.value;
+//   const send_imageUrl =  sendImgUrl.value;
+//   const send_categoryId =  modalCategory.value;
+//   const send_userId = localStorage.getItem("userId");
+
+  
+
+//   await postNewWork(send_id, send_title, send_imageUrl, send_categoryId, send_userId)
+
+  
+
+// };
+
+// sendBtn.addEventListener("click", handleSendWork);
 
 
 
+//                         // sendBtn.addEventListener("click", function() {
+//                         //   console.log(input_value.value)
+//                         //   console.log(modalCategory.value)
+//                         //   console.log(sendImgUrl.value)
+//                         //   console.log()
+
+//                         // })
+
+
+const form = document.querySelector("#add_work_form");
+
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // const url = "http://localhost:5678/api/works/";
+  const localToken = localStorage.getItem("token");
+  // const form = e.currentTarget
+  // const formData = new FormData(form)
+
+
+  const image = document.querySelector("#image").files[0];
+  const title = document.querySelector("#title").value;
+  const categoryId = Number(document.querySelector("#category").value);
+
+  console.log(image)
+  console.log('typeof title', typeof title)
+  console.log('typeof category', typeof categoryId)
+
+
+  const prePayload = new FormData();
+
+
+  prePayload.append('image', image );
+  prePayload.append('title', title );
+  prePayload.append('category', categoryId );
+
+
+  const payload = new URLSearchParams(prePayload);
+
+  
+
+  console.log([...payload]);
+
+  const response =  await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      body: prePayload,
+
+      headers: {
+        Authorization: `Bearer ${localToken}`, 
+
+    },
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // // .catch(err => console.log(err))
+
+})
 
 
 
