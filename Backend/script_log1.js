@@ -46,7 +46,7 @@ async function handleSubmit(event) {
 }
 
 function tokenAuth(userId, token, status) {
-  localStorage.setItem("token", token),
+  localStorage.setItem("token", JSON.stringify(token)),
     localStorage.setItem("userId", JSON.stringify(userId));
   localStorage.setItem("status", JSON.stringify(status));
 }

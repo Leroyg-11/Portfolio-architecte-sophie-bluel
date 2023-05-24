@@ -231,7 +231,7 @@ async function checkLocal() {
           const response = await fetch(`http://localhost:5678/api/works/${id}`, {
             method: 'DELETE',
             headers: {
-              Authorization: `Bearer ${localToken}`, 
+              Authorization: `Bearer ${localToken.replace(/['"]+/g, '')}`, 
               // ${localToken.replace(/['"]+/g, '')} ==> Supprime les quotes qui entoure le token et qui bloque l'authentification
               "Content-Type": "application/json;charset=utf-8",
             }
@@ -376,48 +376,47 @@ const form = document.querySelector("#add_work_form");
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
-  // const url = "http://localhost:5678/api/works/";
+  // const url = "http://localhost:5678/api/works";
   const localToken = localStorage.getItem("token");
-  // const form = e.currentTarget
-  // const formData = new FormData(form)
+  const htmlForm = e.currentTarget
+  const formData = new FormData(htmlForm)
 
 
-  const image = document.querySelector("#image").files[0];
-  const title = document.querySelector("#title").value;
-  const categoryId = Number(document.querySelector("#category").value);
+ // a partir d'ici c'est la vérification des infos du formulaire, c'est optionnel
+  const categories = await getDataCategory()
 
-  console.log(image)
-  console.log('typeof title', typeof title)
-  console.log('typeof category', typeof categoryId)
+  function getCategoryId(category) {
+    return category.id
+  }
 
+  const categoryIds = categories.map(getCategoryId)
 
-  const prePayload = new FormData();
-
-
-  prePayload.append('image', image );
-  prePayload.append('title', title );
-  prePayload.append('category', categoryId );
-
-
-  const payload = new URLSearchParams(prePayload);
-
+  const title = formData.get('title')
+  const category = Number(formData.get('category'))
   
+  if (!categoryIds.includes(category)) {
+    console.log('elle existe pas ta categorie')
+    return 
+  }
 
-  console.log([...payload]);
+  // Et ici on reprend les choses sérieuses
 
   const response =  await fetch("http://localhost:5678/api/works", {
       method: "POST",
-      body: prePayload,
+      body: formData,
 
       headers: {
-        Authorization: `Bearer ${localToken}`, 
+        Authorization: `Bearer ${JSON.parse(localToken)}`, // A modifier en retirant le stringify au moment de l'ajout au localStorage
 
-    },
+    }
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(err => console.log(err))
+    
+    //TRY CATCH !!!!!! 
+
+
     // .then(response => response.json())
     // .then(data => console.log(data))
     // // .catch(err => console.log(err))
