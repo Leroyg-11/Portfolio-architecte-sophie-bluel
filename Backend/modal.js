@@ -225,76 +225,76 @@ async function checkLocal() {
 
 checkLocal();
 
-
-
-
-
-
-
-
-
-
-
 const form = document.querySelector("#add_work_form");
 
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     // const url = "http://localhost:5678/api/works";
     const localToken = localStorage.getItem("token");
+
+
     const htmlForm = e.currentTarget;
+
     const formData = new FormData(htmlForm);
+    // console.log(formData.values())
+
+
+    
+
+    function testDataForm(){
+      for (const value of formData.values()){
+        // const newValue = value.indexOf()
+        const arrayValues = [];
+        arrayValues.push(value)
+
+        console.table(arrayValues)
+      }
+
+      // const indexDataForm =  value(index)
+      
+
+    }
+    testDataForm(); 
+    // const formDatasInput = 
+
+    // for (const value of formData.values()){
+    //     console.log(value)
+    // }
+
+
 
     const createNewPost = async () => {
-      
-      
-
-      // function required(){
-      //   const form_img = e.target[0].value;
-      //   const form_title = e.target[1].value;
-      //   const form_category = e.target[2].value;
-      //   if(form_img || form_title || form_category == ""){
-          
-      //     alert("heyyyyyyyyyyy stopppp")
-
-      //     return;
-
-      //   }else{
-      //     alert("c'est OKKKKKK")
-      //   }
-      // }
-
-
-
-
         try {
-          
-
             const response =  await fetch("http://localhost:5678/api/works", {
             method: "POST",
             body: formData,
             headers: { Authorization: `Bearer ${localToken}`}
             })
-            // required();
-
-            
-
-            
-
-          
-
-            
-
         }catch (error){
           console.log(error)
 
         }
     }
+    // if (response.status === "200") {
+    //   // Suppression réussie
+      
+    //   console.log("cest OKKKKKKKK")
+
+    // } else if (response.status !== 200) {
+    //   // Non autorisé
+    //   console.log("Unauthorized");
+    // } else {
+    //   // Erreur inattendue
+    //   console.log("Unexpected Error");
+    // }
     
     await createNewPost()
 
 
 })
+
 
 
     
