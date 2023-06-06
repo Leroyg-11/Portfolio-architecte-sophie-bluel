@@ -179,7 +179,7 @@ async function checkLocal() {
             workModalElement.appendChild(iconeModal);
     
     
-            iconeModal.addEventListener("click", async function() {
+            iconeModal.addEventListener("click", async function(event) {
                 
                 
                 const modalFigureId = this.getAttribute('id'); // Récupère l'ID de la modal figure
@@ -198,15 +198,18 @@ async function checkLocal() {
               });
               
               if (response.status === "200") {
+                event.preventDefault()
                 // Suppression réussie
                 
                 const modalFigureElement = document.getElementById(modalFigureId);
+                modalFigureElement.classList.add("inactive")
                 modalFigureElement.remove();
+                return
                 
 
               } else if (response.status !== 200) {
                 // Non autorisé
-                console.log("Unauthorized");
+                console.log("C'est tt bon");
               } else {
                 // Erreur inattendue
                 console.log("Unexpected Error");
@@ -265,18 +268,36 @@ form.addEventListener('submit', async (e) => {
 
 
 
-    const createNewPost = async () => {
+    const createNewPost = async (event) => {
+        const form_img = e.target[0].value;
+        const form_title = e.target[1].value;
+        const form_category = e.target[2].value;
+        console.log(form_title, "title", form_img, 'img', form_category, "cat")
         try {
             const response =  await fetch("http://localhost:5678/api/works", {
             method: "POST",
             body: formData,
             headers: { Authorization: `Bearer ${localToken}`}
             })
+            if(form_img || form_title || form_category !== "200"){
+              event.preventDefault()
+              alert("Non")
+            }else{
+              
+              return
+              
+            }
         }catch (error){
           console.log(error)
+          
 
         }
     }
+
+
+
+        
+        
     // if (response.status === "200") {
     //   // Suppression réussie
       
